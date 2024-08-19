@@ -22,10 +22,12 @@ Shader "Unlit/USB_simple_color" //Inspector path
         [Toggle] _Enable ("Enable?", Float) = 0 //Why Float? This is because GPUs are highly optimized for floating-point operations, and working with floats is generally faster and more efficient.
         //KeywordEnum: allows you to configure up to nine different states.
         [KeywordEnum(Off, Red, Blue)] _Options ("Color Options", Float) = 0 //You can use multi_compile (export all states, u can change in execution time) or shader_feature (export only used state).
-  
+        //Enum: define more than one value/id(Int) and pass these propertie to a command. Dont use Shader Variants. Use Enum when you need a simple, internal logic control without generating multiple variants.
+        [Enum(Off, 0, Front, 1, Back, 2)] _Face("Face Culling", Float) = 0
     }
     SubShader
     {
+        Cull[_Face] //command in the SubShader
         Tags { "RenderType"="Opaque" }
         LOD 100
 
