@@ -35,7 +35,9 @@ Shader "Unlit/USB_simple_color" //Inspector path
             #pragma fragment frag //This tells the compiler that the "frag function" is the fragment shader.
             // make fog work
             #pragma multi_compile_fog //Used to compile multiple versions of the shader with different keyword combinations, often for features that can be toggled on or off, like shadows, lighting models, etc.
-
+            #pragma shader_feature _ENABLE_ON //With Toggle have to use this pragma, this is a Shader Variant for generatee different conditions according to its state.
+            //they are written entirely in CAPITAL LETTERS. And _ON is the default state.
+            //IMPORTANT: Unity will not include variants that are not being used in the final build. You will not able to change the state in execution time.
             #include "UnityCG.cginc"
 
             struct appdata
