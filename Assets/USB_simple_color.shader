@@ -15,6 +15,10 @@ Shader "Unlit/USB_simple_color" //Inspector path
         _VPos ("Vertex Position", Vector) = (0,0,0,1)
         _Reflection("Reflection", Cube) = "black" {} //Cubemap is useful for generating reflection maps like reflections on a character's armor or on metallic elements.
         _3DTexture("3D Texture", 3D) = "white" {} //Used less frequently \, have an additional coordinate for their spatial calculation.    
+
+        //Drawers properties: can generate multple states allowing the creation of dynamic effects without the need to change material at execution time.
+        //Generally used with two type of shader variants: #pragma multi_compile and #pragma shader_feature
+
     }
     SubShader
     {
@@ -28,7 +32,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
             #pragma vertex vert //This tells the compiler that the "vert function" is the vertex shader
             #pragma fragment frag //This tells the compiler that the "frag function" is the fragment shader.
             // make fog work
-            #pragma multi_compile_fog
+            #pragma multi_compile_fog //Used to compile multiple versions of the shader with different keyword combinations, often for features that can be toggled on or off, like shadows, lighting models, etc.
 
             #include "UnityCG.cginc"
 
