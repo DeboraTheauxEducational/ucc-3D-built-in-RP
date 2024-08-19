@@ -3,7 +3,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
     Properties //Inspector properties
     {
         //You can modify dynamically or at runetime.
-        PropertyName ("display name", trype) = defaultValue //syntax for declaring property
+        //PropertyName ("display name", trype) = defaultValue //syntax for declaring property
         _MainTex ("Texture", 2D) = "white" {}
         _Color("Tint", Color) = (1,1,1,1)
     }
