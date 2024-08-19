@@ -45,6 +45,11 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 return o;
             }
 
+            float4 exampleFunction()
+            {
+                return (1, 1, 1, 1);
+            }
+
             fixed4 frag(v2f i) : SV_Target
             {
                 //// sample the texture
@@ -54,11 +59,6 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 //return col;
                 float4 f = exampleFunction();
                 return f;
-            }
-
-            float4 exampleFunction()
-            {
-                return (1, 1, 1, 1);
             }
 
             ENDCG
