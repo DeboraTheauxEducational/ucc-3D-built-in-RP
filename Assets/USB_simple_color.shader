@@ -21,7 +21,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
         //Toggle: SharderLab does not support boolean type properties. Toggle allows switching from one state form another. It's an integer 0 = off, 1 = on
         [Toggle] _Enable ("Enable?", Float) = 0 //Why Float? This is because GPUs are highly optimized for floating-point operations, and working with floats is generally faster and more efficient.
         //KeywordEnum: allows you to configure up to nine different states.
-        [KeywordEnum] _Options ("Color Options", Float) = 0 //You can use multi_compile (export all states, u can change in execution time) or shader_feature (export only used state).
+        [KeywordEnum(Off, Red, Blue)] _Options ("Color Options", Float) = 0 //You can use multi_compile (export all states, u can change in execution time) or shader_feature (export only used state).
   
     }
     SubShader
@@ -40,7 +40,10 @@ Shader "Unlit/USB_simple_color" //Inspector path
             #pragma shader_feature _ENABLE_ON //With Toggle have to use this pragma, this is a Shader Variant for generatee different conditions according to its state.
             //they are written entirely in CAPITAL LETTERS. And _ON is the default state.
             //IMPORTANT: Unity will not include variants that are not being used in the final build. You will not able to change the state in execution time.
-            
+
+            //Add pragma related to Options property
+            #pragma multi_compile _OPTIONS_OFF _OPTIONS_RED _OPTIONS_BLUE
+
             #include "UnityCG.cginc"
 
             struct appdata
@@ -82,7 +85,15 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 #if _ENABLE_ON
-                return col * _Color;
+                    //use Options property
+                    #if _OPTIONS_OFF
+                    return col * _Color;
+                    #elif _OPTIONS_RED
+                    return col * float4(1,0,0,1); //red
+                    #elif _OPTIONS_BLUE
+                    return col * float4(0,0,1,1); //blue
+                    #endif
+                    return col;
                 #else
                 return col;
                 #endif
