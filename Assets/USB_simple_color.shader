@@ -76,7 +76,11 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
+                #if _ENABLE_ON
                 return col * _Color;
+                #else
+                return col;
+                #endif
                 //float4 f = exampleFunction();
                 //return f;
             }
