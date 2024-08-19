@@ -5,12 +5,13 @@ Shader "Unlit/USB_simple_color" //Inspector path
         //You can modify dynamically or at runetime.
         //PropertyName ("display name", trype) = defaultValue //syntax for declaring property
         _MainTex ("Texture", 2D) = "white" {}
-        _Color("Tint", Color) = (1,1,1,1)
         //Number ad slider properties
         _Specular ("Specular", Range(0.0, 1.1)) = 0.3 //reflexión, espejo
         _Factor ("Color Factor", Float) = 0.3
         _CId ("Color Id", Int) = 2 
         // Short names (_CId) in CGPROGRAM reduce memory on GPU, improve performance, follow conventions, enhance readability in compact code, and ensure compatibility across platforms.
+        _Color("Tint", Color) = (1,1,1,1)
+        _VPos ("Vertex Position", Vector) = (0,0,0,1)
     }
     SubShader
     {
