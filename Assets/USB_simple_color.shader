@@ -18,6 +18,8 @@ Shader "Unlit/USB_simple_color" //Inspector path
 
         //Drawers properties: can generate multple states allowing the creation of dynamic effects without the need to change material at execution time.
         //Generally used with two type of shader variants: #pragma multi_compile and #pragma shader_feature
+        //Toggle: SharderLab does not support boolean type properties. Toggle allows switching from one state form another. It's an integer 0 = off, 1 = on
+        [Toggle] _Enable ("Enable?", Float) = 0 //Why Float? This is because GPUs are highly optimized for floating-point operations, and working with floats is generally faster and more efficient.
 
     }
     SubShader
@@ -74,7 +76,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                return col * _ColorExample;
+                return col * _Color;
                 //float4 f = exampleFunction();
                 //return f;
             }
