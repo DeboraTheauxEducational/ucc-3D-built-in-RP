@@ -14,7 +14,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
         _Color("Tint", Color) = (1,1,1,1)
         _VPos ("Vertex Position", Vector) = (0,0,0,1)
         _Reflection("Reflection", Cube) = "black" {} //Cubemap is useful for generating reflection maps like reflections on a character's armor or on metallic elements.
-        _3DTexture("3D Texture", 3D) = "white" {} //Used less frequently \, have an additional coordinate for their spatial calculation.
+        _3DTexture("3D Texture", 3D) = "white" {} //Used less frequently \, have an additional coordinate for their spatial calculation.    
     }
     SubShader
     {
@@ -24,8 +24,9 @@ Shader "Unlit/USB_simple_color" //Inspector path
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            //#pragma is a directive used to control the compilation process. These are used to specify which functions in your shader code should be treated as the vertex and fragment (or pixel) shaders.
+            #pragma vertex vert //This tells the compiler that the "vert function" is the vertex shader
+            #pragma fragment frag //This tells the compiler that the "frag function" is the fragment shader.
             // make fog work
             #pragma multi_compile_fog
 
@@ -46,10 +47,10 @@ Shader "Unlit/USB_simple_color" //Inspector path
 
             //Add connection variables: THE SAME NAME!!
             sampler2D _MainTex;
-            float4 _ColorExample;
+            float4 _Color;
             float4 _MainTex_ST;
 
-            v2f vert (appdata v)
+            v2f vert (appdata v) // THIS IS THE VERTEX SHADER
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -63,7 +64,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
             //    return (1, 1, 1, 1);
             //}
 
-            fixed4 frag(v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target // THIS IS THE FRAGMENT SHADER
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
