@@ -1,5 +1,6 @@
 Shader "Unlit/USB_simple_color" //Inspector path
 {
+    //ShaderLab declarative Language: global variables
     Properties //Inspector properties
     {
         //You can modify dynamically or at runetime.
@@ -43,7 +44,9 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 float4 vertex : SV_POSITION;
             };
 
+            //Add connection variables
             sampler2D _MainTex;
+            float4 _Color;
             float4 _MainTex_ST;
 
             v2f vert (appdata v)
