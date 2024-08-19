@@ -58,20 +58,20 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 return o;
             }
 
-            float4 exampleFunction()
-            {
-                return (1, 1, 1, 1);
-            }
+            //float4 exampleFunction()
+            //{
+            //    return (1, 1, 1, 1);
+            //}
 
             fixed4 frag(v2f i) : SV_Target
             {
-                //// sample the texture
-                //fixed4 col = tex2D(_MainTex, i.uv);
-                //// apply fog
-                //UNITY_APPLY_FOG(i.fogCoord, col);
-                //return col;
-                float4 f = exampleFunction();
-                return f;
+                // sample the texture
+                fixed4 col = tex2D(_MainTex, i.uv);
+                // apply fog
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                return col * _Color;
+                //float4 f = exampleFunction();
+                //return f;
             }
 
             ENDCG
