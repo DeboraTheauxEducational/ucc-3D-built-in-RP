@@ -12,6 +12,8 @@ Shader "Unlit/USB_simple_color" //Inspector path
         // Short names (_CId) in CGPROGRAM reduce memory on GPU, improve performance, follow conventions, enhance readability in compact code, and ensure compatibility across platforms.
         _Color("Tint", Color) = (1,1,1,1)
         _VPos ("Vertex Position", Vector) = (0,0,0,1)
+        _Reflection("Reflection", Cube) = "black" {} //Cubemap is useful for generating reflection maps like reflections on a character's armor or on metallic elements.
+        _3DTexture("3D Texture", 3D) = "white" {} //Used less frequently \, have an additional coordinate for their spatial calculation.
     }
     SubShader
     {
