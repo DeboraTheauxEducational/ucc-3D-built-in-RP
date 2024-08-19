@@ -44,9 +44,9 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 float4 vertex : SV_POSITION;
             };
 
-            //Add connection variables
+            //Add connection variables: THE SAME NAME!!
             sampler2D _MainTex;
-            float4 _Color;
+            float4 _ColorExample;
             float4 _MainTex_ST;
 
             v2f vert (appdata v)
@@ -69,7 +69,7 @@ Shader "Unlit/USB_simple_color" //Inspector path
                 fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                return col * _Color;
+                return col * _ColorExample;
                 //float4 f = exampleFunction();
                 //return f;
             }
