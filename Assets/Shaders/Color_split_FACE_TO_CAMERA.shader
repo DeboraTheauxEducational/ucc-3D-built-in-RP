@@ -62,6 +62,13 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
                 //calculate the distance between the camera position and vertex world position, to obtain the direction
                 float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos); 
 
+                 // A mathematical operation that takes two vectors and returns a scalar value. 
+                 //This value indicates how aligned the two vectors are. 
+                 //In this case, we measure how aligned the surface normal is with the direction toward the camera.
+                float dotProd = dot(i.worldNormal, viewDir);
+                //i.worldNormal: Determines the orientation of the object's face.
+                //viewDir: The direction toward the camera from the perspective of each pixel.
+
                 fixed4 col = tex2D(_MainTex, i.uv);
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
