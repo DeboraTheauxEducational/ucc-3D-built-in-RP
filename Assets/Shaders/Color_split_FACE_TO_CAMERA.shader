@@ -22,6 +22,7 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal : NORMAL; //Add normal data from mesh
             };
 
             struct v2f
@@ -29,6 +30,8 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                float3 worldNormal : TEXCOORD0; //Add TEXTCOORD0 to save world normal position
+                float3 worldVertex : TEXCOORD1; //Add TEXTCOORD1 to save world vertex position
             };
 
             sampler2D _MainTex;
