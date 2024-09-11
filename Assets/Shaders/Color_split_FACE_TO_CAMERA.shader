@@ -2,7 +2,12 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
 {
     Properties
     {
+        //Add Properties
         _MainTex ("Texture", 2D) = "white" {}
+        _ColorFront("Front Face Color", Color) = (1, 0, 0, 1) 
+        _ColorBack("Back Face Color", Color) = (0, 1, 0, 1) 
+        _ColorSide("Side Face Color", Color) = (0, 0, 1, 1) 
+    
     }
     SubShader
     {
@@ -17,6 +22,11 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
+
+            //Add global variables
+            float4 _ColorFront;
+            float4 _ColorBack;
+            float4 _ColorSide;
 
             struct appdata
             {
