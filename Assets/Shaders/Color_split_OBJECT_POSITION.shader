@@ -1,3 +1,48 @@
+/*
+Unity provides macros and functions in the inclusion files (cginc) that help you easily obtain positions in these different spaces.
+
+The main matrices are:
+
+unity_ObjectToWorld:
+Transforms coordinates from Object Space (local) to World Space. 
+Used to get the position of a vertex or point in the global scene space.
+Function: mul(unity_ObjectToWorld, v.vertex)
+
+unity_WorldToObject:
+Transforms coordinates from World Space to Object Space (local). 
+Useful for reversing transformations and obtaining local positions.
+Function: mul(unity_WorldToObject, v.vertex)
+
+UNITY_MATRIX_MV:
+The Model-View matrix, which transforms coordinates from Object Space to View Space.
+Function: mul(UNITY_MATRIX_MV, v.vertex)
+
+UNITY_MATRIX_VP:
+The combined View-Projection matrix. 
+Used to transform coordinates from View Space directly to Clip Space.
+Function: mul(UNITY_MATRIX_VP, v.vertex)
+
+UNITY_MATRIX_MVP:
+The combined Model-View-Projection matrix, which transforms coordinates from Object Space directly to Clip Space,
+used for rendering on the screen.
+Function: mul(UNITY_MATRIX_MVP, v.vertex)
+
+UNITY_MATRIX_IT_MV:
+The inverse transpose of the Model-View matrix. 
+Useful for transforming normals to View Space while preserving correct orientation.
+Function: mul(UNITY_MATRIX_IT_MV, v.normal)
+
+unity_CameraProjection:
+The camera projection matrix,
+used to transform coordinates from View Space to Clip Space, applying perspective.
+Function: mul(unity_CameraProjection, v.vertex)
+
+UNITY_MATRIX_P:
+The Projection matrix, which transforms coordinates from View Space 
+to homogeneous coordinates in Clip Space.
+Function: mul(UNITY_MATRIX_P, v.vertex)
+*/
+
 Shader "Unlit/Color_split_OBJECT_POSITION"
 {
     Properties
