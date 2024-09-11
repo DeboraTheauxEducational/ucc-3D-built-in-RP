@@ -33,6 +33,7 @@ Shader "Unlit/Color_split"
 					float2 uv : TEXCOORD0;
 					UNITY_FOG_COORDS(1)
 					float4 vertex : SV_POSITION;
+					float4 selectedColor; //we need to add a variable to the struct so that its value can be passed between the vert and the frag
 				};
 
 				sampler2D _MainTex;
@@ -49,14 +50,14 @@ Shader "Unlit/Color_split"
 					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 					
 					//Trying to change color based on uv.y position
-					if (o.uv.y <= _ColorChangePos)
-					{
-						_SelectedColor = _Color1;
-					}
-					else
-					{
-						_SelectedColor = _Color2;
-					}
+					// if (o.uv.y <= _ColorChangePos)
+					// {
+					// 	_SelectedColor = _Color1;
+					// }
+					// else
+					// {
+					// 	_SelectedColor = _Color2;
+					// }
 
 					UNITY_TRANSFER_FOG(o,o.vertex);
 					return o;
@@ -67,7 +68,7 @@ Shader "Unlit/Color_split"
 					// sample the texture
 					fixed4 col = tex2D(_MainTex, i.uv);
 
-					col *= _SelectedColor; //this color will be (0,0,0,0)
+					//col *= _SelectedColor; //this color will be (0,0,0,0)
 
 					// apply fog
 					UNITY_APPLY_FOG(i.fogCoord, col);
