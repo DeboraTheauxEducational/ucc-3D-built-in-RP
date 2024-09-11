@@ -66,15 +66,15 @@ Shader "Unlit/Color_split"
 					o.vertex = UnityObjectToClipPos(v.vertex);
 					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 					
-					//Trying to change color based on uv.y position
-					// if (o.uv.y <= _ColorChangePos)
-					// {
-					// 	_SelectedColor = _Color1;
-					// }
-					// else
-					// {
-					// 	_SelectedColor = _Color2;
-					// }
+					//Trying to change color based on uv.y position of TEXCOORD0 and assign it value on TEXCOORD1
+					if (o.uv.y <= _ColorChangePos)
+					{
+						o.selectedColor = _Color1;
+					}
+					else
+					{
+						o.selectedColor = _Color2;
+					}
 
 					UNITY_TRANSFER_FOG(o,o.vertex);
 					return o;
@@ -85,7 +85,8 @@ Shader "Unlit/Color_split"
 					// sample the texture
 					fixed4 col = tex2D(_MainTex, i.uv);
 
-					//col *= _SelectedColor; //this color will be (0,0,0,0)
+					//asign the variable TEXCOORD1 stored on the v2f struct 
+					col *= i.selectedColor; //this color will no longer be (0,0,0,0)
 
 					// apply fog
 					UNITY_APPLY_FOG(i.fogCoord, col);
