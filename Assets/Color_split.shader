@@ -37,10 +37,10 @@ Shader "Unlit/Color_split"
 
 				sampler2D _MainTex;
 				float4 _MainTex_ST;
-				float4 _SelectedColor;
+				float4 _SelectedColor; //vert and frag pass doesn't share global variables
 				float4 _Color1;
 				float4 _Color2;
-				float _ColorChangePos;
+				float _ColorChangePos; 
 
 				v2f vert(appdata v)
 				{
@@ -67,7 +67,7 @@ Shader "Unlit/Color_split"
 					// sample the texture
 					fixed4 col = tex2D(_MainTex, i.uv);
 
-					col *= _SelectedColor;
+					col *= _SelectedColor; //this color will be (0,0,0,0)
 
 					// apply fog
 					UNITY_APPLY_FOG(i.fogCoord, col);
