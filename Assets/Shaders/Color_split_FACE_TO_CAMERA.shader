@@ -26,7 +26,7 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
             //Add global variables
             float4 _ColorFront;
             float4 _ColorBack;
-            float4 _ColorSide;
+            float4 _ColorSidr;
 
             struct appdata
             {
@@ -40,8 +40,8 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float3 worldNormal : TEXCOORD0; //Add TEXTCOORD0 to save world normal position
-                float3 worldVertex : TEXCOORD1; //Add TEXTCOORD1 to save world vertex position
+                float3 worldNormal : TEXCOORD1; //Add TEXTCOORD1 to save world normal position
+                float3 worldVertex : TEXCOORD2; //Add TEXTCOORD2 to save world vertex position
             };
 
             sampler2D _MainTex;
