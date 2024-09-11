@@ -59,6 +59,9 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //calculate the distance between the camera position and vertex world position, to obtain the direction
+                float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos); 
+
                 fixed4 col = tex2D(_MainTex, i.uv);
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
