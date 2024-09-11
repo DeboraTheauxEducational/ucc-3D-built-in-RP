@@ -75,6 +75,13 @@ Shader "Unlit/Color_split"
 					{
 						o.selectedColor = _Color2;
 					}
+					/*
+					Why does this work? 
+					The TEXCOORDX interpolation registers are generic channels that allow storing any type of floating-point data or vector of 
+					floating-point data (such as float2, float3, float4), and in this case, 
+					a color can be represented as a float4 (RGBA), which fits perfectly with the type of data TEXCOORD1 accepts. 
+					In reality, it's a memory space you can use to pass any interpolated data between the vertex shader and the fragment shader.
+					*/
 
 					UNITY_TRANSFER_FOG(o,o.vertex);
 					return o;
