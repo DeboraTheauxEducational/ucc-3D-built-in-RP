@@ -69,6 +69,22 @@ Shader "Unlit/Color_split_WORLD_POSITION"
 				fixed4 frag(v2f i) : SV_Target
 				{
 					fixed4 col = tex2D(_MainTex, i.uv);
+
+					/*
+					Instead of using i.uv.y to determine the cutoff, it is now based on the Y coordinate in World Space (i.worldPos.y). 
+					This means the cutoff will be horizontal and consistent across all faces of the cube, and the color will change 
+					according to the height in World Space.
+					*/
+
+					if (i.worldPos.y > _ColorChangePos)
+					{
+						col *= _Color1;
+					}
+					else
+					{
+						col *= _Color2;
+					}
+
 					UNITY_APPLY_FOG(i.fogCoord, col);
 					return col;
 				}
