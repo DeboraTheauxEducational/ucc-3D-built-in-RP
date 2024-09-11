@@ -73,8 +73,22 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
                 //If the dot product is 1: perfectly aligned (the angle between them is 0°).
                 // If the dot product is 0: perpendicular (the angle between them is 90°).
                 // If the dot product is -1: completely opposite (the angle between them is 180°).
-
+                
                 fixed4 col = tex2D(_MainTex, i.uv);
+
+                if (dotProd > 0.5) 
+                {
+                    col = _ColorFront;
+                }
+                else if (dotProd < -0.5)
+                {
+                    col = _ColorBack;
+                }
+                else 
+                {
+                    col = _ColorSide;
+                }
+
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
