@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color_split_material
+  m_Name: Color_split_vertex_material
   m_Shader: {fileID: 4800000, guid: 5d10a6c719235d2458644fff87a82e8e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

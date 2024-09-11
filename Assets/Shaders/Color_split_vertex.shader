@@ -1,4 +1,4 @@
-Shader "Unlit/Color_split"
+Shader "Unlit/Color_split_vertex"
 {
     Properties
 	{
