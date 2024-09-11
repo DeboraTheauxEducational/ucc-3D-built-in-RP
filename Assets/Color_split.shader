@@ -33,7 +33,8 @@ Shader "Unlit/Color_split"
 					float2 uv : TEXCOORD0;
 					UNITY_FOG_COORDS(1)
 					float4 vertex : SV_POSITION;
-					float4 selectedColor; //we need to add a variable to the struct so that its value can be passed between the vert and the frag
+					//we need to add a variable to the struct so that its value can be passed between the vert and the frag
+					float4 selectedColor : TEXCOORD1; //we must assign an initial value
 				};
 
 				sampler2D _MainTex;
@@ -43,7 +44,7 @@ Shader "Unlit/Color_split"
 				float4 _Color2;
 				float _ColorChangePos; 
 
-				v2f vert(appdata v)
+				v2f vert(appdata v) //vertex to fragment!!!
 				{
 					v2f o;
 					o.vertex = UnityObjectToClipPos(v.vertex);
