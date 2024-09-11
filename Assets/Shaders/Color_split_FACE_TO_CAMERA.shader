@@ -49,9 +49,10 @@ Shader "Unlit/Color_split_FACE_TO_CAMERA"
 
             v2f vert (appdata v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+               v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex); // vertex position to Clip pos
+                o.worldNormal = mul(unity_ObjectToWorld, float4(v.normal, 0.0)).xyz; // normal to World Position using macros float3 to float4 an finally to float3
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz; // vertex position to World Space
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
