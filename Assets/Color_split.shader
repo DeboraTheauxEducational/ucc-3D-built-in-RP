@@ -37,6 +37,22 @@ Shader "Unlit/Color_split"
 					float4 selectedColor : TEXCOORD1; //we must assign an initial value
 				};
 
+				/*
+				What is TEXCOORD?
+				Texture coordinates and tell the shader how to map 2D texture onto a 3D object, based on UV mapping (U: horizontal, V: vertical axes).
+				TEXCOORD0 is the first set of texture coordinates, ofted used to pass the main UV mapping for the texture.
+				TEXCOORD1,2,etc are additional sets of texture coordinates, used for passing other data, 
+				like secondary UV maps, custom vertex colors, or any other interpolated values you need between the vertex and the fragment shaders.
+
+				What is the logic to apply? 
+				Remember that the shader is applied per vertex. 
+				Keeping this in mind, in the vertex shader, you assign data to these TEXCOORD slots. Then, the fragment shader
+				reads the interpolated data through the same TEXCOORD slots. Each TEXCOORD slot can hold different types of data, 
+				not just UVs. They are essentially registers that the GPU uses to transfer information 
+				between the vertex and fragment shaders.
+
+				*/
+
 				sampler2D _MainTex;
 				float4 _MainTex_ST;
 				float4 _SelectedColor; //vert and frag pass doesn't share global variables
