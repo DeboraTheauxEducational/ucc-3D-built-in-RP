@@ -1,3 +1,10 @@
+/*
+The decision of which color to apply is made in the vertex shader, and the calculated value is passed to the fragment shader through the v2f structure.
+The color value is interpolated between vertices when passed to the fragment shader. 
+This means that if a triangle contains vertices using both _Color1 and _Color2, 
+the colors will blend smoothly across the surface of the triangle, creating a gradual transition between the two colors.
+*/
+
 Shader "Unlit/Color_split_vertex"
 {
     Properties

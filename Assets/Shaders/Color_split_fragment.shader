@@ -1,3 +1,9 @@
+/*
+The calculation of which color to apply is done in the fragment shader. 
+The fragment shader decides the color based on the i.uv.y coordinate. 
+This causes an abrupt color cut, as the change is decided for each fragment, and there is no interpolation.
+*/
+
 Shader "Unlit/Color_split_frag"
 {
 	Properties
