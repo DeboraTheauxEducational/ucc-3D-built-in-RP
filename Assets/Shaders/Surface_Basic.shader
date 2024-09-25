@@ -16,21 +16,13 @@ Shader "Unlit/Surface_Basic"
         Pass
         {
             CGPROGRAM
-            //delete pragma vertex
-            //delete pragma fragment
-            // make fog work
-            //delete pragma multi_compile_fog
-
-            //delete include "UnityCG.cginc"
-
-           //delete appdata and v2f structs
-
             sampler2D _MainTex;
-            //delete _MainTex_ST;
 
-            //delete vert shader
-
-            //delete frag shader
+            //Add new struct called Input. This will hold all the information we need to modify our surface. 
+            //For this example, we only need uv coordinates.
+            struct Input {
+	            float2 uv_MainTexture; 
+            };
 
             }
             ENDCG
