@@ -17,7 +17,7 @@ Shader "Unlit/Surface_Basic"
         {
             CGPROGRAM
             //delete pragma vertex
-            #pragma fragment frag
+            //delete pragma fragment
             // make fog work
             #pragma multi_compile_fog
 
@@ -41,13 +41,8 @@ Shader "Unlit/Surface_Basic"
 
             //delete vert shader
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+            //delete frag shader
+
             }
             ENDCG
         }
