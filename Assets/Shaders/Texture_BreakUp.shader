@@ -57,6 +57,11 @@ Shader "Unlit/Texture_BreakUp"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float height = tex2D(_HeightTex, i.uv_height).r; //tex2D returns (r,g,b,a) on uv position, normally r is for the height.
 
+                if (height < _FadeThreshold)
+                {
+                    discard;
+                }
+
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
