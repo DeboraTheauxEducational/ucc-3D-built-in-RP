@@ -7,6 +7,7 @@ Shader "Unlit/Surface_Basic"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_Color ("Tint", Color) = (0, 0, 0, 1) //add color property
     }
     SubShader
     {
@@ -18,13 +19,16 @@ Shader "Unlit/Surface_Basic"
         #pragma surface surf Standard fullforwardshadows
 
         sampler2D _MainTex;
+		fixed4 _Color; //add color variable
 
         struct Input {
 	        float2 uv_MainTexture; 
         };
 
         void surf(Input i, inout SurfaceOutputStandard o){
-
+            //Add simple color calculations
+            fixed4 col = tex2D(_MainTex, i.uv_MainTexture);
+			col *= _Color;
         }
         ENDCG
     }
