@@ -43,6 +43,7 @@ Shader "Custom/Color_Fresnel"
         {
             fixed4 c = tex2D (_MainTex, i.uv_MainTex) * _Color;
             float fresnel = dot(i.worldNormal, float3(0, 1, 0)); //let's calculate how aligned those vectors are
+            fresnel = saturate(fresnel); //clamp between 0 and 1.
             o.Emission = _Emission + fresnel; //and visualized on the emission
 
             //The emission is lighter when the normal points up and darker where it points down.
