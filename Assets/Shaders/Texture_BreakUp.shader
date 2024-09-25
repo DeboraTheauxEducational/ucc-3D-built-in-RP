@@ -37,6 +37,7 @@ Shader "Unlit/Texture_BreakUp"
             sampler2D _MainTex;
             sampler2D _HeightTex;
             float4 _MainTex_ST;
+            float4 _HeightTex_ST;
 
             v2f vert (appdata v)
             {
