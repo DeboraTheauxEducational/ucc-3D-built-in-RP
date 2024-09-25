@@ -17,6 +17,12 @@ Shader "Unlit/Surface_Basic"
         {
             CGPROGRAM
 
+            //Add pragma to make Unity correctly handle light
+            //Add surface for the type of shader.
+            //Add surf for the method used.
+            //Add Standard fullforwardshadows for the last lighting model we want it to use
+            #pragma surface surf Standard fullforwardshadows
+
             sampler2D _MainTex;
 
             //Add new struct called Input. This will hold all the information we need to modify our surface. 
