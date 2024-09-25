@@ -32,6 +32,7 @@ Shader "Custom/Color_Fresnel"
         {
             float2 uv_MainTex;
             float3 worldNormal; //to get and generate the worldspace normal.
+            float3 viewDir; //View direction vertexPosition - cameraPosition
         };
 
         half _Glossiness;
