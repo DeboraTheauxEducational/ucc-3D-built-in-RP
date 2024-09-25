@@ -12,6 +12,7 @@ Shader "Custom/Color_Fresnel"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        [HDR] _Emission ("Emission", color) = (0,0,0) //add Emission property
     }
     SubShader
     {
@@ -35,24 +36,18 @@ Shader "Custom/Color_Fresnel"
 
         half _Glossiness;
         half _Metallic;
+        half3 _Emission;
         fixed4 _Color;
 
-        // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-        // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-        // #pragma instancing_options assumeuniformscaling
-        UNITY_INSTANCING_BUFFER_START(Props)
-            // put more per-instance properties here
-        UNITY_INSTANCING_BUFFER_END(Props)
-
-        void surf (Input IN, inout SurfaceOutputStandard o)
+        void surf (Input i, inout SurfaceOutputStandard o)
         {
-            // Albedo comes from a texture tinted by color
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = c.rgb;
-            // Metallic and smoothness come from slider variables
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-            o.Alpha = c.a;
+            fixed4 c = tex2D (_MainTex, i.uv_MainTex) * _Color;
+            float fresnel = dot(i.worldNormal, float3(0, 1, 0)); //let's calculate how aligned those vectors are
+            o.Emission = _Emission + fresnel; //and visualized on the emission
+            // o.Albedo = c.rgb;
+            // o.Metallic = _Metallic;
+            // o.Smoothness = _Glossiness;
+            // o.Alpha = c.a;
         }
         ENDCG
     }
