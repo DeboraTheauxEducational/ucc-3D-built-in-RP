@@ -43,6 +43,7 @@ Shader "Unlit/Texture_BreakUp"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv_height = TRANSFORM_TEX(v.uv, _HeightTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
