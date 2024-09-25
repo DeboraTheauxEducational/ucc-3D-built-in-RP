@@ -5,6 +5,8 @@ Shader "Unlit/Texture_BreakUp"
         _MainTex ("Texture", 2D) = "white" {}
         _HeightTex ("Height Texture", 2D) = "white" {}
         _FadeThreshold ("Fade Threshold", Range(0, 1)) = 0.0
+        _OutlineColor ("Outline Color", Color) = (1, 0, 0, 1)
+        _OutlineThickness ("Outline Thickness", Float) = 0.01
     }
     SubShader
     {
@@ -40,6 +42,8 @@ Shader "Unlit/Texture_BreakUp"
             float4 _MainTex_ST;
             float4 _HeightTex_ST;
             float _FadeThreshold;
+            float4 _OutlineColor;
+            float _OutlineThickness;
 
             v2f vert (appdata v)
             {
@@ -56,6 +60,18 @@ Shader "Unlit/Texture_BreakUp"
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float height = tex2D(_HeightTex, i.uv_height).r; //tex2D returns (r,g,b,a) on uv position, normally r is for the height.
+
+                float left = tex2D(_HeightTex, i.uv_height + float2(-_OutlineThickness, 0)).r;
+                float right = tex2D(_HeightTex, i.uv_height + float2(_OutlineThickness, 0)).r;
+                float up = tex2D(_HeightTex, i.uv_height + float2(0, _OutlineThickness)).r;
+                float down = tex2D(_HeightTex, i.uv_height + float2(0, -_OutlineThickness)).r;
+
+                bool isEdge = (height < _FadeThreshold) && (left >= _FadeThreshold || right >= _FadeThreshold || up >= _FadeThreshold || down >= _FadeThreshold);
+
+                if (isEdge)
+                {
+                    return _OutlineColor;
+                }
 
                 if (height < _FadeThreshold)
                 {
