@@ -4,6 +4,7 @@ Shader "Unlit/Texture_BreakUp"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _HeightTex ("Height Texture", 2D) = "white" {}
+        _FadeThreshold ("Fade Threshold", Range(0, 1)) = 0.0
     }
     SubShader
     {
@@ -38,6 +39,7 @@ Shader "Unlit/Texture_BreakUp"
             sampler2D _HeightTex;
             float4 _MainTex_ST;
             float4 _HeightTex_ST;
+            float _FadeThreshold;
 
             v2f vert (appdata v)
             {
