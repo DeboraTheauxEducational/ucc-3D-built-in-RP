@@ -7,11 +7,12 @@ Shader "Unlit/Surface_Basic"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _EmissionTex ("Emission Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (0, 0, 0, 1) //add color property
         //Add other properties
 		_Smoothness ("Smoothness", Range(0, 1)) = 0 
 		_Metallic ("Metalness", Range(0, 1)) = 0
-		[HDR] _Emission ("Emission", color) = (0,0,0) //hdr to set brightness to higher values
+		[HDR] _EmissionColor ("Emission", Color) = (0,0,0,1) //hdr to set brightness to higher values
     }
     SubShader
     {
@@ -23,21 +24,25 @@ Shader "Unlit/Surface_Basic"
         #pragma surface surf Standard fullforwardshadows
 
         sampler2D _MainTex;
+        sampler2D _EmissionTex;
 		fixed4 _Color; //add color variable
 
         //add properties variables
-        half _Smoothness; //scalar value
-		half _Metallic; //scalar value
-		half3 _Emission; //rgb values without alpha and bigger than 1
+        float _Smoothness; //scalar value
+		float _Metallic; //scalar value
+		fixed4 _EmissionColor;     //rgb values without alpha and bigger than 1
 
         struct Input {
 	        float2 uv_MainTex; //Name is important!!
+	        float2 uv_EmissionTex; //Name is important!!
         };
 
         void surf(Input i, inout SurfaceOutputStandard o){
             //Add simple color calculations
             fixed4 col = tex2D(_MainTex, i.uv_MainTex);
+            fixed4 emission = tex2D(_EmissionTex, i.uv_EmissionTex);
 			col *= _Color;
+            emission *= _EmissionColor;
 			o.Albedo = col.rgb;
 
             /*
@@ -53,13 +58,11 @@ Shader "Unlit/Surface_Basic"
                 Occlusion: simulates shadows in crevices.
                 Alpha: manages transparency.
             */
-
-            o.Albedo = col.rgb;
             //set the output variable
             o.Albedo = col.rgb;
 			o.Metallic = _Metallic;
 			o.Smoothness = _Smoothness;
-			o.Emission = _Emission;
+			o.Emission = emission.rgb;
         }
         ENDCG
     }
