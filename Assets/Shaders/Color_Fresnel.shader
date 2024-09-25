@@ -30,6 +30,7 @@ Shader "Custom/Color_Fresnel"
         struct Input
         {
             float2 uv_MainTex;
+            float3 worldNormal; //to get and generate the worldspace normal.
         };
 
         half _Glossiness;
