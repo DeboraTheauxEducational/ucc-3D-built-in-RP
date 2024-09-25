@@ -8,6 +8,10 @@ Shader "Unlit/Surface_Basic"
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (0, 0, 0, 1) //add color property
+        //Add other properties
+		_Smoothness ("Smoothness", Range(0, 1)) = 0 
+		_Metallic ("Metalness", Range(0, 1)) = 0
+		[HDR] _Emission ("Emission", color) = (0,0,0) //hdr to set brightness to higher values
     }
     SubShader
     {
@@ -20,6 +24,11 @@ Shader "Unlit/Surface_Basic"
 
         sampler2D _MainTex;
 		fixed4 _Color; //add color variable
+
+        //add properties variables
+        half _Smoothness; //scalar value
+		half _Metallic; //scalar value
+		half3 _Emission; //rgb values without alpha and bigger than 1
 
         struct Input {
 	        float2 uv_MainTex; //Name is important!!
@@ -46,6 +55,11 @@ Shader "Unlit/Surface_Basic"
             */
 
             o.Albedo = col.rgb;
+            //set the output variable
+            o.Albedo = col.rgb;
+			o.Metallic = _Metallic;
+			o.Smoothness = _Smoothness;
+			o.Emission = _Emission;
         }
         ENDCG
     }
