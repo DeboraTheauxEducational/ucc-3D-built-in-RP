@@ -16,7 +16,7 @@ Shader "Unlit/Surface_Basic"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "Queue" = "Geometry"}
         LOD 100
               
         CGPROGRAM
