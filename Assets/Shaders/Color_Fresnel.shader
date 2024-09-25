@@ -1,5 +1,11 @@
 Shader "Custom/Color_Fresnel"
 {
+
+    /*
+        With a fresnel you can darken, lighten or color the outline of your objects, increasing the sense of depth.
+        Fresnel uses the normals of the object to determine the intensity of the effect
+    */
+    
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
