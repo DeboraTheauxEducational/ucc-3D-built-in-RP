@@ -35,6 +35,7 @@ Shader "Custom/Color_Fresnel"
             float2 uv_MainTex;
             float3 worldNormal; //to get and generate the worldspace normal.
             float3 viewDir; //View direction vertexPosition - cameraPosition
+            INTERNAL_DATA
         };
 
         half _Glossiness;
@@ -56,9 +57,9 @@ Shader "Custom/Color_Fresnel"
             //The emission is lighter when the normal points up and darker where it points down.
 
             o.Albedo = c.rgb;
-            // o.Metallic = _Metallic;
-            // o.Smoothness = _Glossiness;
-            // o.Alpha = c.a;
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
+            o.Alpha = c.a;
         }
         ENDCG
     }
