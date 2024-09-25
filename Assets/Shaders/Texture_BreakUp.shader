@@ -29,6 +29,7 @@ Shader "Unlit/Texture_BreakUp"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
+                float2 uv_height : TEXCOORD1;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
