@@ -44,7 +44,7 @@ Shader "Custom/Color_Fresnel"
         {
             fixed4 c = tex2D (_MainTex, i.uv_MainTex) * _Color;
             float fresnel = dot(i.worldNormal, i.viewDir); //let's calculate how aligned the world normal and viewDir of the vertex are
-            fresnel = saturate(fresnel); //clamp between 0 and 1.
+            fresnel = saturate(1 - fresnel); //clamp between 0 and 1. And invert the lighting direction
             o.Emission = _Emission + fresnel; //and visualized on the emission
 
             //The emission is lighter when the normal points up and darker where it points down.
