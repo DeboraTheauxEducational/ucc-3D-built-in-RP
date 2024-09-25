@@ -13,6 +13,8 @@ Shader "Custom/Color_Fresnel"
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
         [HDR] _Emission ("Emission", color) = (0,0,0) //add Emission property
+        _FresnelColor ("Fresnel Color", Color) = (1,1,1,1) //add color property
+        [PowerSlider(4)] _FresnelExponent ("Fresnel Exponent", Range(0.25, 4)) = 1 //add Multiplier property
     }
     SubShader
     {
@@ -39,17 +41,21 @@ Shader "Custom/Color_Fresnel"
         half _Metallic;
         half3 _Emission;
         fixed4 _Color;
+        float3 _FresnelColor; //add color variable
+        float _FresnelExponent; //add multiplier variable
 
         void surf (Input i, inout SurfaceOutputStandard o)
         {
             fixed4 c = tex2D (_MainTex, i.uv_MainTex) * _Color;
             float fresnel = dot(i.worldNormal, i.viewDir); //let's calculate how aligned the world normal and viewDir of the vertex are
             fresnel = saturate(1 - fresnel); //clamp between 0 and 1. And invert the lighting direction
-            o.Emission = _Emission + fresnel; //and visualized on the emission
+            fresnel = pow(fresnel, _FresnelExponent); //calculate the exponent
+            float3 fresnelColor = fresnel * _FresnelColor; //add color calculation
+            o.Emission = _Emission + fresnelColor; //and visualized on the emission
 
             //The emission is lighter when the normal points up and darker where it points down.
 
-            // o.Albedo = c.rgb;
+            o.Albedo = c.rgb;
             // o.Metallic = _Metallic;
             // o.Smoothness = _Glossiness;
             // o.Alpha = c.a;
