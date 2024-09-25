@@ -22,12 +22,12 @@ Shader "Unlit/Surface_Basic"
 		fixed4 _Color; //add color variable
 
         struct Input {
-	        float2 uv_MainTexture; 
+	        float2 uv_MainTex; //Name is important!!
         };
 
         void surf(Input i, inout SurfaceOutputStandard o){
             //Add simple color calculations
-            fixed4 col = tex2D(_MainTex, i.uv_MainTexture);
+            fixed4 col = tex2D(_MainTex, i.uv_MainTex);
 			col *= _Color;
 			o.Albedo = col.rgb;
 
