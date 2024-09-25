@@ -16,7 +16,7 @@ Shader "Unlit/Surface_Basic"
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert
+            //delete pragma vertex
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
@@ -39,14 +39,7 @@ Shader "Unlit/Surface_Basic"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
-                return o;
-            }
+            //delete vert shader
 
             fixed4 frag (v2f i) : SV_Target
             {
