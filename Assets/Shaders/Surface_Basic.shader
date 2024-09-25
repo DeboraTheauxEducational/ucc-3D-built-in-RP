@@ -19,14 +19,14 @@ Shader "Unlit/Surface_Basic"
             //delete pragma vertex
             //delete pragma fragment
             // make fog work
-            #pragma multi_compile_fog
+            //delete pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            //delete include "UnityCG.cginc"
 
            //delete appdata and v2f structs
 
             sampler2D _MainTex;
-            float4 _MainTex_ST;
+            //delete _MainTex_ST;
 
             //delete vert shader
 
