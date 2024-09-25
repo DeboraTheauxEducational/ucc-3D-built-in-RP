@@ -13,8 +13,8 @@ Shader "Unlit/Surface_Basic"
         Tags { "RenderType"="Opaque" }
         LOD 100
 
-        Pass
-        {
+       //delete Pass
+       // {
             CGPROGRAM
 
             //Add pragma to make Unity correctly handle light
@@ -39,6 +39,6 @@ Shader "Unlit/Surface_Basic"
 
             }
             ENDCG
-        }
+        //}
     }
 }
