@@ -1,98 +1,71 @@
 Shader "Unlit/Color_split_FACE_TO_CAMERA"
 {
-    Properties
-    {
-        //Add Properties
-        _MainTex ("Texture", 2D) = "white" {}
-        _ColorFront("Front Face Color", Color) = (1, 0, 0, 1) 
-        _ColorBack("Back Face Color", Color) = (0, 1, 0, 1) 
-        _ColorSide("Side Face Color", Color) = (0, 0, 1, 1) 
-    
+    Properties {
+        _BaseColor ("BaseColor", Color) = (1,1,1,1)
+        _ColorX ("Color X", Color) = (1,1,1,1)
+        _ColorY ("Color Y", Color) = (1,1,1,1)
+        _YLimit ("Limit Y", Float) = 0.0
+        _FadeRange ("Fade Range", Float) = 1.0//
     }
-    SubShader
-    {
-        Tags { "RenderType"="Opaque" }
+    SubShader {
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }//{ "RenderType"="Opaque" }
         LOD 100
+        Blend SrcAlpha OneMinusSrcAlpha
 
-        Pass
-        {
+        Pass {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile_fog
-
             #include "UnityCG.cginc"
+            
+            fixed4 _BaseColor;
+            fixed4 _ColorX;
+            fixed4 _ColorY;
+            float _YLimit;
+            float _FadeRange;//
 
-            //Add global variables
-            float4 _ColorFront;
-            float4 _ColorBack;
-            float4 _ColorSide;
-
-            struct appdata
-            {
+            struct appdata {
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-                float3 normal : NORMAL; //Add normal data from mesh
+                float3 normal : NORMAL;
             };
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
-                float4 vertex : SV_POSITION;
-                float3 worldNormal : TEXCOORD1; //Add TEXTCOORD1 to save world normal position
-                float3 worldVertex : TEXCOORD2; //Add TEXTCOORD2 to save world vertex position
+            struct v2f {
+                float4 pos : SV_POSITION;
+                float3 normalDir : TEXCOORD0;
+                float yPos : TEXCOORD1;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-
-            v2f vert (appdata v)
-            {
-               v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex); // vertex position to Clip pos
-                o.worldNormal = mul(unity_ObjectToWorld, float4(v.normal, 0.0)).xyz; // normal to World Position using macros float3 to float4 an finally to float3
-                o.worldVertex = mul(unity_ObjectToWorld, v.vertex).xyz; // vertex position to World Space
-                UNITY_TRANSFER_FOG(o,o.vertex);
+            v2f vert (appdata v) {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.normalDir = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+                o.yPos =  mul(unity_ObjectToWorld, v.vertex).y;
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                //calculate the distance between the camera position and vertex world position, to obtain the direction
-                float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldVertex); 
+            fixed4 frag (v2f i) : SV_Target {
 
-                 // A mathematical operation that takes two vectors and returns a scalar value. 
-                 //This value indicates how aligned the two vectors are. 
-                 //In this case, we measure how aligned the surface normal is with the direction toward the camera.
-                float dotProd = dot(i.worldNormal, viewDir);
-                //i.worldNormal: Determines the orientation of the object's face.
-                //viewDir: The direction toward the camera from the perspective of each pixel.
+               float3 right = float3(1,0,0);
+               float3 up = float3(0,1,0);
+               float3 left = float3(-1,0,0);
+               float3 finalColor = (0,0,0);
+               float alpha = 1.0;
 
-                //Values of dotProd:
-                //If the dot product is 1: perfectly aligned (the angle between them is 0°).
-                // If the dot product is 0: perpendicular (the angle between them is 90°).
-                // If the dot product is -1: completely opposite (the angle between them is 180°).
-                
-                fixed4 col = tex2D(_MainTex, i.uv);
+               finalColor += _ColorX.rgb * dot(i.normalDir, right) * _ColorX.a;
 
-                if (dotProd > 0.5) 
-                {
-                    col = _ColorFront;
-                }
-                else if (dotProd < -0.5)
-                {
-                    col = _ColorBack;
-                }
-                else 
-                {
-                    col = _ColorSide;
-                }
+               finalColor += _ColorY.rgb * dot(i.normalDir, up) * _ColorY.a;
 
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+               finalColor += _BaseColor.rgb * dot(i.normalDir, left) * saturate((i.yPos - (_YLimit - _FadeRange)) / _FadeRange);    
+
+               if(i.yPos < _YLimit)
+               {
+                    alpha = saturate((i.yPos - (_YLimit - _FadeRange)) / _FadeRange);//
+               }
+               
+               return fixed4(finalColor, alpha);
             }
             ENDCG
         }
     }
+    Fallback "VertexLit"
 }
