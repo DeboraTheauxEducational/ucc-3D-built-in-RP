@@ -44,11 +44,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9374737a39aa521408ac3988e97aa51e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 403e336e5700c724790ded62c739d511, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: f48e6a248438ea34a95582e3bd1e4918, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -65,22 +69,40 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissiveStrengh: 1
+    - _EmissiveStrength: 1
+    - _Fade: 0
+    - _FadeAmount: 0.793
+    - _FadeRange: 1
+    - _FlowMultiplier: 2.4
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _GradientStrength: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseScale: 99.49
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TimeSpeed: 0.5
     - _UVSec: 0
+    - _YLimit: 1
+    - _YPos: 0
     - _ZWrite: 1
+    - _yPosHigh: 50
+    - _yPosLow: 25
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.09862709, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.6603774, g: 0.25792095, b: 0.25792095, a: 1}
     - _ColorBack: {r: 0, g: 1, b: 0, a: 1}
     - _ColorFront: {r: 1, g: 0, b: 0, a: 1}
+    - _ColorHigh: {r: 0.78074044, g: 0.90551317, b: 0.90943396, a: 1}
+    - _ColorLow: {r: 0.32399434, g: 0.3512282, b: 0.3584906, a: 1}
     - _ColorSide: {r: 0, g: 0, b: 1, a: 1}
+    - _ColorX: {r: 1, g: 0.009663264, b: 0, a: 1}
+    - _ColorY: {r: 0.13808489, g: 1, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
