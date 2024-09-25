@@ -23,18 +23,7 @@ Shader "Unlit/Surface_Basic"
 
             #include "UnityCG.cginc"
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
-
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
-                float4 vertex : SV_POSITION;
-            };
+           //delete appdata and v2f structs
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
