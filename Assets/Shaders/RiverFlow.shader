@@ -21,6 +21,8 @@ Shader "Custom/RiverFlow"
 
         #pragma target 3.0
 
+        //Tenemos que agregar la variable de la textura. Unity se encarga de asignarle un valor.
+        sampler2D  _CameraDepthTexture;
         sampler2D _MainTex;
         sampler2D _DepthTex;
         half _Glossiness;
@@ -61,6 +63,10 @@ Shader "Custom/RiverFlow"
             //Invertimos toda la expresión para obtener lo siguiente:
             //Los fragmentos que están más cerca de la cámara resulten en un valor menor para foamFactor (cercano a 0).
             //Los fragmentos que están más lejos de la cámara resulten en un valor mayor para foamFactor (cercano a 1).
+
+            //Ahora bien, queremos que esta profundidad se mida en base a la distancia con objetos de la escena, para eso se puede utilizar un macro que toma la textura de profundidad de la escena, capturada por la cámara.
+            // Este macro es SAMPLE_DEPTH_TEXTURE_PROJ y tiene 2 argumentos: la textura y las coordenadas de la textura, similar a tex2D.
+            float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, float4(1,1,1,1));
             float foamFactor = 1 - ((1 -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
@@ -69,8 +75,8 @@ Shader "Custom/RiverFlow"
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
             color += foamColor.r;
 
-
-            o.Albedo = color.rgb;
+            //"Depuramos" el valor de sceneDepth
+            o.Albedo = float3(sceneDepth, 0,0);
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = color.a;
