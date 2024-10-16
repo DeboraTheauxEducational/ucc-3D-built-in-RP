@@ -56,7 +56,9 @@ Shader "Custom/RiverFlow"
             // screenPos.w es un valor que suele ser inverso a la profundidad: a medida que el objeto está más lejos de la cámara, el valor w aumenta.
             //Si IN.screenPos.w = 1.0 (un pixel cerca de la cámara)
             //Si IN.screenPos.w = 10.0 (un pixel más lejano)
-            float foamFactor = IN.screenPos.w/0.1;
+            //Agregamos un divisor para controlar el valor de foam factor
+            //Invertimos el factor para que sea proporcional a la profundidad.
+            float foamFactor = (1 - IN.screenPos.w)/2;
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
