@@ -52,7 +52,7 @@ Shader "Custom/RiverFlow"
             
             // Hacemos lo mismo para calcular el Foam
             // Invertimos los colores del Foam
-            fixed4 foamColor = 1 - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
+            fixed4 foamColor = 0.1 - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
