@@ -52,13 +52,19 @@ Shader "Custom/RiverFlow"
             
             // Hacemos lo mismo para calcular el Foam
             // Invertimos los colores del Foam
+            // La "cantidad" de espuma va a depender de ese 1 o 0.1 y queremos que sea en base a la "profundidad"
+            // screenPos.w es un valor que suele ser inverso a la profundidad: a medida que el objeto está más lejos de la cámara, el valor w aumenta.
+            //Si IN.screenPos.w = 1.0 (un pixel cerca de la cámara)
+            //Si IN.screenPos.w = 10.0 (un pixel más lejano)
+            float foamFactor = IN.screenPos.w;
             fixed4 foamColor = 0.1 - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
             color += foamColor.r;
 
-            o.Albedo = color.rgb;
+            //"Depurar" el valor de foam factor
+            o.Albedo = float3(foamFactor, 0,0);
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = color.a;
