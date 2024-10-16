@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Texture_BreakUp
-  m_Shader: {fileID: 4800000, guid: 13bbc2c6129c3df4d9fb4ae8ce54435a, type: 3}
+  m_Name: River
+  m_Shader: {fileID: 4800000, guid: af88e7463977e0b44a666ab78221ddb1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,11 +23,11 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BreakUpTex:
-        m_Texture: {fileID: 2800000, guid: f48e6a248438ea34a95582e3bd1e4918, type: 3}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BumpMap:
+    - _DepthTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -47,13 +47,13 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _HeightTex:
-        m_Texture: {fileID: 2800000, guid: 2548d97419902a6498f390bc5798c318, type: 3}
-        m_Scale: {x: 1, y: 1}
+    - _FoamNoise:
+        m_Texture: {fileID: 2800000, guid: 387bfe5bdb8c63d48aec5f5058d42fcd, type: 3}
+        m_Scale: {x: 3, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 403e336e5700c724790ded62c739d511, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 2548d97419902a6498f390bc5798c318, type: 3}
+        m_Scale: {x: 0.53, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -67,20 +67,35 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Specs:
+        m_Texture: {fileID: 2800000, guid: 72c26281599821f4fad0e053c0dd5fe0, type: 3}
+        m_Scale: {x: 1, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _Specs1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1.57, y: 5.53}
+        m_Offset: {x: 0, y: 0}
+    - _Specs2:
+        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 2, y: 0.19}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DepthFactor: 0.1
     - _DetailNormalMapScale: 1
+    - _Distortion: 0.78
+    - _DistortionScale: 0.4
     - _DstBlend: 0
-    - _FadeThreshold: 0
+    - _FlowSpeed: 0.1
+    - _FoamAmount: 2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineThickness: 0.01
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -88,7 +103,15 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.6568995, g: 0.6513421, b: 0.85660374, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - _FlowDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _FoamColor: {r: 0.7150943, g: 0.9966871, b: 1, a: 1}
+    - _FoamDirection: {r: 0.2, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0.3074048, g: 0.36383423, b: 0.5924529, a: 1}
+    - _SpecColor1: {r: 0.6981132, g: 0.5729797, b: 0.5971991, a: 1}
+    - _SpecColor2: {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 1}
+    - _SpecDirection: {r: 0.2, g: 0, b: 0, a: 0}
+    - _SpecDirection1: {r: 0, g: 0, b: 1, a: 0}
+    - _SpecDirection2: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
