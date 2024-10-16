@@ -58,7 +58,10 @@ Shader "Custom/RiverFlow"
             //Si IN.screenPos.w = 10.0 (un pixel más lejano)
             //Agregamos un divisor para controlar el valor de foam factor
             //Invertimos el factor para que sea proporcional a la profundidad.
-            float foamFactor = (1 - IN.screenPos.w)/2;
+            //Invertimos toda la expresión para obtener lo siguiente:
+            //Los fragmentos que están más cerca de la cámara resulten en un valor menor para foamFactor (cercano a 0).
+            //Los fragmentos que están más lejos de la cámara resulten en un valor mayor para foamFactor (cercano a 1).
+            float foamFactor = 1 - ((1 -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
