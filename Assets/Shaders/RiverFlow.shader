@@ -70,7 +70,8 @@ Shader "Custom/RiverFlow"
             float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, sceneCoords);
             float foamFactor = 1 - ((sceneDepth -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
-            fixed4 foamColor = saturate(foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor);
+            fixed4 foamColor = tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
+            foamFactor = saturate(foamFactor - foamColor);
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
