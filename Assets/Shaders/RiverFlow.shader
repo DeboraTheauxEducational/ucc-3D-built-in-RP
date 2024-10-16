@@ -68,7 +68,8 @@ Shader "Custom/RiverFlow"
             //UNITY_PROJ_COORD(IN.screenPos) toma las coordenadas en espacio de clip (como IN.screenPos) y realiza una corrección para pasar a coordenadas proyectadas, que son necesarias para realizar ciertos cálculos relacionados con la posición de los fragmentos en la pantalla.
             float4 sceneCoords = UNITY_PROJ_COORD(IN.screenPos);
             float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, sceneCoords);
-            float foamFactor = 1 - ((sceneDepth -IN.screenPos.w)/2);
+            //Agregamos la magia: LinearEyeDepth pasa el 3D a 2D te proporciona la distancia en espacio de la cámara correspondiente a la profundidad máxima (1 en este caso) en el espacio de clip, y es útil para realizar cálculos relacionados con la distancia de manera más precis
+            float foamFactor = 1 - ((LinearEyeDepth(sceneDepth) -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
             foamFactor = saturate(foamFactor - foamColor);
