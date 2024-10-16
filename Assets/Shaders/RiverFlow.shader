@@ -66,8 +66,11 @@ Shader "Custom/RiverFlow"
 
             //Ahora bien, queremos que esta profundidad se mida en base a la distancia con objetos de la escena, para eso se puede utilizar un macro que toma la textura de profundidad de la escena, capturada por la cámara.
             // Este macro es SAMPLE_DEPTH_TEXTURE_PROJ y tiene 2 argumentos: la textura y las coordenadas de la textura, similar a tex2D.
-            float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, float4(1,1,1,1));
-            float foamFactor = 1 - ((1 -IN.screenPos.w)/2);
+            //La posición de la textura de profundidad de la cámara que queremos obtener no es (1,1,1,1), es en relacion a la posicion del pixel en la proyeccion de la cámara.
+            //UNITY_PROJ_COORD(IN.screenPos) toma las coordenadas en espacio de clip (como IN.screenPos) y realiza una corrección para pasar a coordenadas proyectadas, que son necesarias para realizar ciertos cálculos relacionados con la posición de los fragmentos en la pantalla.
+            float4 sceneCoords = UNITY_PROJ_COORD(IN.screenPos);
+            float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, sceneCoords);
+            float foamFactor = 1 - ((sceneDepth -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
@@ -75,8 +78,7 @@ Shader "Custom/RiverFlow"
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
             color += foamColor.r;
 
-            //"Depuramos" el valor de sceneDepth
-            o.Albedo = float3(sceneDepth, 0,0);
+            o.Albedo = color.rgb;
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = color.a;
