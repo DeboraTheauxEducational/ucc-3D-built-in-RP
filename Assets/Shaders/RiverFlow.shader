@@ -49,7 +49,12 @@ Shader "Custom/RiverFlow"
             // En el tiempo 1 al pixel le toca el color rojo, en el tiempo 2 le toca el color azul, etc.
             // *_Color sirve para "teñir" la textura y al estar multiplicado crea un "merge" entre el color de la textura y el de la variable Color.
             fixed4 color = tex2D (_MainTex, IN.uv_MainTex + _Direction * _Time.y) * _Color;
+            
+            // Hacemos lo mismo para calcular el Foam
+            fixed4 foamColor = tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
+            // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
+            color += foamColor;
 
             o.Albedo = color.rgb;
             o.Metallic = _Metallic;
