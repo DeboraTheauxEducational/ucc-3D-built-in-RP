@@ -38,7 +38,16 @@ Shader "Custom/RiverFlow"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            // Albedo comes from a texture tinted by color
+            // tex2D función que obtiene el color de un pixel en una posición de la textura.
+            // MainTex textura base.
+            // IN.uv_MainTex las coordenadas uv de la textura MainTex.
+            // _Direction vector de dirección 
+            // _Time.y del vector de tiempo (macro de Unity), se obtiene la coordenada "y" que indica los segundos.
+            // este macro se utiliza para animaciones.
+            // IN.uv_MainTex + _Direction * _Time.y => movemos la coordenada "x,y" veces en función del tiempo,
+            // lo que resulta en que el color del pixel se mueva hacia esa dirección.
+            // En el tiempo 1 al pixel le toca el color rojo, en el tiempo 2 le toca el color azul, etc.
+            // *_Color sirve para "teñir" la textura y al estar multiplicado crea un "merge" entre el color de la textura y el de la variable Color.
             fixed4 color = tex2D (_MainTex, IN.uv_MainTex + _Direction * _Time.y) * _Color;
 
 
