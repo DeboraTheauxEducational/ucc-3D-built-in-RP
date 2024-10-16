@@ -12,14 +12,12 @@ Shader "Custom/RiverFlow"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" "ForceNoShadowCasting"="True"}
         LOD 200
 
         CGPROGRAM
-        // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
-
-        #pragma target 3.0
+        #pragma surface surf Standard fullforwardshadows alpha
+        #pragma target 4.0
 
         //Tenemos que agregar la variable de la textura. Unity se encarga de asignarle un valor.
         sampler2D  _CameraDepthTexture;
@@ -72,11 +70,11 @@ Shader "Custom/RiverFlow"
             float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, sceneCoords);
             float foamFactor = 1 - ((sceneDepth -IN.screenPos.w)/2);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
-            fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
+            fixed4 foamColor = saturate(foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor);
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
-            color += foamColor.r;
+            color.rgb = lerp(color.rgb, foamColor, foamFactor);
 
             o.Albedo = color.rgb;
             o.Metallic = _Metallic;
