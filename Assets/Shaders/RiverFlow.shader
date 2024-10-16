@@ -57,14 +57,15 @@ Shader "Custom/RiverFlow"
             //Si IN.screenPos.w = 1.0 (un pixel cerca de la cámara)
             //Si IN.screenPos.w = 10.0 (un pixel más lejano)
             float foamFactor = IN.screenPos.w;
-            fixed4 foamColor = 0.1 - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
+            //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
+            fixed4 foamColor = foamFactor - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
             //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
             color += foamColor.r;
 
-            //"Depurar" el valor de foam factor
-            o.Albedo = float3(foamFactor, 0,0);
+
+            o.Albedo = color.rgb;
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = color.a;
