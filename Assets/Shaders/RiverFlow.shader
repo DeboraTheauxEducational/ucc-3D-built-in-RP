@@ -9,6 +9,7 @@ Shader "Custom/RiverFlow"
         _DepthColor ("Depth Color", Color) = (1,1,1,1)
         _DepthTex ("Depth Albedo (RGB)", 2D) = "white" {}
         _DepthDirection ("Depth Direction", Vector) = (0,0,0,0)
+        _DepthDistance("Depth Distance", Float) = 2
     }
     SubShader
     {
@@ -29,6 +30,7 @@ Shader "Custom/RiverFlow"
         float2 _Direction;
         fixed4 _DepthColor;
         float2 _DepthDirection;
+        float _DepthDistance;
 
         struct Input
         {
@@ -69,7 +71,7 @@ Shader "Custom/RiverFlow"
             float4 sceneCoords = UNITY_PROJ_COORD(IN.screenPos);
             float sceneDepth = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, sceneCoords);
             //Agregamos la magia: LinearEyeDepth pasa el 3D a 2D te proporciona la distancia en espacio de la cámara correspondiente a la profundidad máxima (1 en este caso) en el espacio de clip, y es útil para realizar cálculos relacionados con la distancia de manera más precis
-            float foamFactor = 1 - ((LinearEyeDepth(sceneDepth) -IN.screenPos.w)/2);
+            float foamFactor = 1 - ((LinearEyeDepth(sceneDepth) -IN.screenPos.w)/_DepthDistance);
             //Agregar foam factor para determinar que tanto hay que invertir el color en ese pixel
             fixed4 foamColor = tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
             foamFactor = saturate(foamFactor - foamColor);
