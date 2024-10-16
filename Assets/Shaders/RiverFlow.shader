@@ -51,10 +51,12 @@ Shader "Custom/RiverFlow"
             fixed4 color = tex2D (_MainTex, IN.uv_MainTex + _Direction * _Time.y) * _Color;
             
             // Hacemos lo mismo para calcular el Foam
-            fixed4 foamColor = tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
+            // Invertimos los colores del Foam
+            fixed4 foamColor = 1 - tex2D(_DepthTex, IN.uv_MainTex + _DepthDirection * _Time.y) * _DepthColor;
 
             // "mergeamos" las texturas y colores: probar multiplicacion y suma y ver que sucede con el color negro (0,0,0,0)
-            color += foamColor;
+            //Tomamos solo el canal rojo del foam (normalmente relacionado con la "altura")
+            color += foamColor.r;
 
             o.Albedo = color.rgb;
             o.Metallic = _Metallic;
