@@ -35,9 +35,12 @@ Shader "Custom/Triplanar_Mapping"
             fixed4 col_side = tex2D(_MainTex, uv_side);
             fixed4 col_top = tex2D(_MainTex, uv_top);
 
-            fixed4 c = (1,1,1,1);
-            o.Albedo = c.rgb;
-            o.Alpha = c.a;
+            //Sumamos los colores proyectados
+            fixed4 col = col_front + col_side + col_top;
+
+            //los mostramos en Albedo
+            o.Albedo = col.rgb;
+            o.Alpha = col.a;
         }
         ENDCG
     }
