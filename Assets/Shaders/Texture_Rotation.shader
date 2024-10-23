@@ -33,8 +33,12 @@ Shader "Custom/Texture_Rotation"
             //[sen,  cos]
             //Por lo tanto necesitamos calcular el sen y cos del angulo
 
-            float cos = cos(angle);
-            float sin = sin(angle);
+            //En HLSL se utiliza radianes para calcular dichas operaciones trigonometricas, por lo que primero debemos pasar el valor en grados a radianes.
+
+            float radAngle = radians(angle);
+            
+            float cosAngle = cos(radAngle);
+            float sinAngle = sin(radAngle);
 
             return 0;
         }
