@@ -40,6 +40,9 @@ Shader "Custom/Texture_Rotation"
             float cosAngle = cos(radAngle);
             float sinAngle = sin(radAngle);
 
+            //Ahora si podemos crear la matriz de rotacion
+            float2x2 rotationMatrix = float2x2(cosAngle, -sinAngle, sinAngle, cosAngle);
+
             return 0;
         }
 
