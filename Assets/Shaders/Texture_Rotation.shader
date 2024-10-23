@@ -49,7 +49,11 @@ Shader "Custom/Texture_Rotation"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            //ahora usamos la función para rotar los uv.
+
+            float2 rotatedUV = RotateUV(IN.uv_MainTex, _Rotation);
+
+            fixed4 c = tex2D (_MainTex, rotatedUV);
             o.Albedo = c.rgb;
         }
         ENDCG
