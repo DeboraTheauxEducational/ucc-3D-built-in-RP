@@ -18,6 +18,7 @@ Shader "Custom/Triplanar_Mapping"
         struct Input
         {
             float3 worldPos;
+            float3 worldNormal;
         };
 
         UNITY_INSTANCING_BUFFER_START(Props)
@@ -34,6 +35,11 @@ Shader "Custom/Triplanar_Mapping"
             fixed4 col_front = tex2D(_MainTex, uv_front);
             fixed4 col_side = tex2D(_MainTex, uv_side);
             fixed4 col_top = tex2D(_MainTex, uv_top);
+
+            //Calculamos
+            col_front *= IN.worldNormal.z;
+            col_side *= IN.worldNormal.x;
+            col_top *= IN.worldNormal.y;
 
             //Sumamos los colores proyectados
             fixed4 col = col_front + col_side + col_top;
