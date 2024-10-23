@@ -28,6 +28,14 @@ Shader "Custom/Texture_Rotation"
 
         float2 RotateUV(float2 uv, float angle)
         {
+            //Para rotar un vector2, se necesita de una matriz de rotación bidimesional. Dicha matriz es 2x2 
+            //[cos, -sen]
+            //[sen,  cos]
+            //Por lo tanto necesitamos calcular el sen y cos del angulo
+
+            float cos = cos(angle);
+            float sin = sin(angle);
+
             return 0;
         }
 
