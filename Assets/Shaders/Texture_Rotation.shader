@@ -3,6 +3,7 @@ Shader "Custom/Texture_Rotation"
     Properties
     {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _Rotation ("Texture Rotation (Degrees)", Float) = 0
     }
     SubShader
     {
@@ -15,6 +16,7 @@ Shader "Custom/Texture_Rotation"
         #pragma target 3.0
 
         sampler2D _MainTex;
+        float _Rotation;
 
         struct Input
         {
