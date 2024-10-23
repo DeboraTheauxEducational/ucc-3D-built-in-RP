@@ -17,7 +17,7 @@ Shader "Custom/Triplanar_Mapping"
 
         struct Input
         {
-            float2 uv_MainTex;
+            float3 worldPos;
         };
 
         UNITY_INSTANCING_BUFFER_START(Props)
@@ -25,7 +25,12 @@ Shader "Custom/Triplanar_Mapping"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            //Calculamos la proyeccion de cada plano (cara) del objeto
+            float2 uv_front = IN.worldPos.xy;
+            float2 uv_side = IN.worldPos.zy;
+            float2 uv_top = IN.worldPos.xz;
+
+            fixed4 c = (1,1,1,1);
             o.Albedo = c.rgb;
             o.Alpha = c.a;
         }
