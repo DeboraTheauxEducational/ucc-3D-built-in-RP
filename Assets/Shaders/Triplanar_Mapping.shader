@@ -36,10 +36,10 @@ Shader "Custom/Triplanar_Mapping"
             fixed4 col_side = tex2D(_MainTex, uv_side);
             fixed4 col_top = tex2D(_MainTex, uv_top);
 
-            //Calculamos
-            col_front *= IN.worldNormal.z;
-            col_side *= IN.worldNormal.x;
-            col_top *= IN.worldNormal.y;
+            //Calculamos el valor absoluto de las normales
+            col_front *= abs(IN.worldNormal).z;
+            col_side *= abs(IN.worldNormal).x;
+            col_top *= abs(IN.worldNormal).y;
 
             //Sumamos los colores proyectados
             fixed4 col = col_front + col_side + col_top;
@@ -52,3 +52,5 @@ Shader "Custom/Triplanar_Mapping"
     }
     FallBack "Diffuse"
 }
+
+
