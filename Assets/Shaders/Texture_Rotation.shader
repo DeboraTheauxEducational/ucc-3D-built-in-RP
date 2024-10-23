@@ -26,6 +26,11 @@ Shader "Custom/Texture_Rotation"
         UNITY_INSTANCING_BUFFER_START(Props)
         UNITY_INSTANCING_BUFFER_END(Props)
 
+        float2 RotateUV(float2 uv, float angle)
+        {
+            return 0;
+        }
+
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
