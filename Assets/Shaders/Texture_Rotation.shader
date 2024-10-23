@@ -43,7 +43,8 @@ Shader "Custom/Texture_Rotation"
             //Ahora si podemos crear la matriz de rotacion
             float2x2 rotationMatrix = float2x2(cosAngle, -sinAngle, sinAngle, cosAngle);
 
-            return 0;
+            //Y solo nos queda multiplicar la matriz por el vector UV
+            return mul(rotationMatrix, uv);
         }
 
         void surf (Input IN, inout SurfaceOutputStandard o)
