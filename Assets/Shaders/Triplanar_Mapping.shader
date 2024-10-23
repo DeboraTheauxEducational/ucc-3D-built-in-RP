@@ -30,6 +30,11 @@ Shader "Custom/Triplanar_Mapping"
             float2 uv_side = IN.worldPos.zy;
             float2 uv_top = IN.worldPos.xz;
 
+            //Tomamos el color de pixel en cada caso
+            fixed4 col_front = tex2D(_MainTex, uv_front);
+            fixed4 col_side = tex2D(_MainTex, uv_side);
+            fixed4 col_top = tex2D(_MainTex, uv_top);
+
             fixed4 c = (1,1,1,1);
             o.Albedo = c.rgb;
             o.Alpha = c.a;
