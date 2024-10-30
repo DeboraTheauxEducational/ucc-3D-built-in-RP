@@ -6,7 +6,7 @@ Shader "Unlit/White_Noise"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque"  "Queue"="Geometry"}
         LOD 200
 
         CGPROGRAM
