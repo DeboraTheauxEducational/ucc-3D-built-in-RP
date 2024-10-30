@@ -2,7 +2,8 @@ Shader "Custom/Voronoi_Noise"
 {
     Properties
     {
-
+        _CellSize ("Cell Size", Range(0, 2)) = 1
+		_BorderColor ("Border Color", Color) = (0,0,0,1)
     }
     SubShader
     {
@@ -14,9 +15,12 @@ Shader "Custom/Voronoi_Noise"
 
         #pragma target 3.0
 
+        float _CellSize;
+		float3 _BorderColor;
+
         struct Input
         {
-           
+          
         };
 
 
