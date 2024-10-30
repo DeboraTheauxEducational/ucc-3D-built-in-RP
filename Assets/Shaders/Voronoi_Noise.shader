@@ -39,7 +39,12 @@ Shader "Custom/Voronoi_Noise"
 
             //rand1dTo3d(noise.y) convierte el valor noise.y en un color float3. Esto garantiza que cada celda tenga un color único y distintivo. El color es aleatorio y depende del valor noise.y generado para cada celda.
 
-			o.Albedo = half3(cellColor.x,cellColor.y, cellColor.z);
+            float isBorder = step(noise.z, 0.05); //para agregar borde
+            // step es una función que retorna 1 si noise.z es menor o igual a 0.05 (en este caso, cerca del borde) y 0 si está fuera de esta distancia. Al usar 0.05, estamos definiendo el grosor del borde.
+
+            float3 color = lerp(cellColor, _BorderColor, isBorder); //dependiendo si es borde o no agregar color de borde o color de celda.
+
+			o.Albedo = color.rgb;
             o.Alpha = 1;
         }
         ENDCG
