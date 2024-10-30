@@ -1,6 +1,15 @@
 #ifndef VORONOI_NOISE
 #define VORONOI_NOISE
 
+float3 rand1dTo3d(float value)
+{
+    return float3(
+        frac(sin(value + 3.9812) * 143758.5453),
+        frac(sin(value + 7.1536) * 143758.5453),
+        frac(sin(value + 5.7241) * 143758.5453)
+    );
+}
+
 float rand2dTo1d(float2 value)
 {
     float2 smallValue = sin(value);
