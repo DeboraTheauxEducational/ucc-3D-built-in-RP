@@ -31,7 +31,13 @@ Shader "Custom/Voronoi_Noise"
             float2 cell = IN.worldPos.xz / _CellSize; //se divide el plano XZ del mundo en tamaño de celdas
             float3 noise = voronoiNoiseWithEdge2D(cell); //calcula el Voronoi Noise para la posición de la celda.
 
-			o.Albedo = half3(noise.x,noise.y, noise.z);
+            //noise.x: la distancia desde el punto actual al centro de la celda más cercana.
+            //noise.y: un valor aleatorio único para cada celda, usado para darle un color distintivo a cada celda.
+            //noise.z: la distancia al borde de la celda más cercana (esto permite que se dibujen los bordes entre celdas).
+
+            float3 cellColor = rand1dTo3d(noise.y); //generar un color para cada celda
+
+			o.Albedo = half3(cellColor.x,cellColor.y, cellColor.z);
             o.Alpha = 1;
         }
         ENDCG
