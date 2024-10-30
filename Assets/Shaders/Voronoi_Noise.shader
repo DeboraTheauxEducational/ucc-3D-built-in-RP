@@ -15,12 +15,14 @@ Shader "Custom/Voronoi_Noise"
 
         #pragma target 3.0
 
+        #include "VoronoiNoise.cginc" 
+
         float _CellSize;
 		float3 _BorderColor;
 
         struct Input
         {
-          
+           float3 worldPos;
         };
 
 
