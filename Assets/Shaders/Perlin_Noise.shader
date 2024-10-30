@@ -25,7 +25,12 @@ Shader "Custom/Perlin_Noise"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
+            float2 value = IN.worldPos.xz / _CellSize; //Dividir el espacio del objeto en celdas de Perlin Noise
+            // Obtener el Perlin Noise en 2D y ajustarlo al rango 0-1
+            float noise = perlinNoise2D(value); //calcular el perlin noise
 
+            o.Albedo = noise;
+            o.Alpha = 1;
         }
         ENDCG
     }
