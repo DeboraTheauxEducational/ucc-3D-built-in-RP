@@ -24,7 +24,7 @@ Shader "Unlit/White_Noise"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-
+             o.Albedo = rand3dTo3d(IN.worldPos); //usamos la funcion de WhiteNoise.cginc para agregar el ruido al color base
         }
         ENDCG
     }
