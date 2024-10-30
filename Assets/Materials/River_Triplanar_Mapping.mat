@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Triplanar_Mapping
-  m_Shader: {fileID: 4800000, guid: 7ed9b8b64cd3d1c49a7ab81fd9d95ff4, type: 3}
+  m_Name: River_Triplanar_Mapping
+  m_Shader: {fileID: 4800000, guid: 5ed377c95bd6bc84db06a409779cf897, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,6 +25,10 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DepthTex:
+        m_Texture: {fileID: 2800000, guid: 387bfe5bdb8c63d48aec5f5058d42fcd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -44,8 +48,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 403e336e5700c724790ded62c739d511, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 72c26281599821f4fad0e053c0dd5fe0, type: 3}
+        m_Scale: {x: -2, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -63,6 +67,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DepthDistance: 1.35
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -72,6 +77,10 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Rotation: 0.3
+    - _RotationFront: 90
+    - _RotationSide: 90
+    - _RotationTop: 180
     - _Sharpness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -79,6 +88,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.6057885, g: 0.63271993, b: 0.89433956, a: 1}
+    - _DepthColor: {r: 0.71694547, g: 0.9200054, b: 0.9245283, a: 1}
+    - _DepthDirection: {r: 0, g: 0.2, b: 0, a: 0}
+    - _Direction: {r: -0.2, g: 0, b: 0, a: 0}
+    - _DirectionTop: {r: 0.2, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
