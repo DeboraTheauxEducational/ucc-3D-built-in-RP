@@ -28,7 +28,7 @@ Shader "Custom/Voronoi_Noise"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            float2 cell = IN.worldPos.xz / _CellSize; //se divide el plano XZ del mundo en tamaño de celdas
+            float2 cell = IN.worldPos.yz / _CellSize; //se divide el plano XZ del mundo en tamaño de celdas
             float3 noise = voronoiNoiseWithEdge2D(cell); //calcula el Voronoi Noise para la posición de la celda.
 
             //noise.x: la distancia desde el punto actual al centro de la celda más cercana.
