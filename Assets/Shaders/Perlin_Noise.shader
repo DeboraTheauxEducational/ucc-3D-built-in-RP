@@ -2,7 +2,7 @@ Shader "Custom/Perlin_Noise"
 {
     Properties
     {
-
+        _CellSize ("Cell Size", Range(0.1, 5)) = 1
     }
     SubShader
     {
@@ -14,9 +14,13 @@ Shader "Custom/Perlin_Noise"
 
         #pragma target 3.0
 
+        #include "PerlinNoise.cginc" 
+
+        float _CellSize;
+
         struct Input
         {
-            
+             float3 worldPos;
         };
 
         void surf (Input IN, inout SurfaceOutputStandard o)
