@@ -37,6 +37,8 @@ Shader "Custom/Voronoi_Noise"
 
             float3 cellColor = rand1dTo3d(noise.y); //generar un color para cada celda
 
+            //rand1dTo3d(noise.y) convierte el valor noise.y en un color float3. Esto garantiza que cada celda tenga un color único y distintivo. El color es aleatorio y depende del valor noise.y generado para cada celda.
+
 			o.Albedo = half3(cellColor.x,cellColor.y, cellColor.z);
             o.Alpha = 1;
         }
